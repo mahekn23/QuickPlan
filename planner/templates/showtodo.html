@@ -1,0 +1,118 @@
+
+{% load static %}
+<html>
+<head>
+<title>
+planner
+</title>
+<style>
+
+
+
+#del a{
+color: red;
+}
+#del a:link {
+  color: red;
+}
+#del a:active {
+  color: red;
+}
+#del a:hover {
+  color: red;
+}
+#del a:visited {
+  color: red;
+}
+
+#nav{
+background-color:#545454;
+text-align:right;
+}
+#nav a:hover{
+color:white;}
+
+#nav a{
+color:#D9D9D9;
+font-size:30px;
+text-decoration:none;
+padding:30px;
+}
+body {
+  background-color: #D9D9D9;
+}
+footer{
+position:relative;
+left: 0;
+bottom: 0;
+}
+.b:hover{
+ display: inline;
+ background-color:#79CDCD;
+ color:white;
+}
+</style>
+</head>
+<body>
+<div id="nav">
+{% if user.is_authenticated %}
+<a href="{% url 'home' %}">Home</a>
+<a href="{% url 'addtodo' %}">Add Task</a>
+<a>Welcome {{user.username}}</a>
+<a href="{% url 'ulogout' %}">Logout</a>
+{% else %}
+<a href="{% url 'index' %}">Home</a>
+<a href="{% url 'usignup' %}">SignUp</a>
+<a href="{% url 'ulogin' %}">Login</a>
+{% endif %}
+</div>
+
+<br>
+<br>
+<br>
+<center>
+<form  action="{% url 'search' %}">
+
+<input type="text" name='search' style="width:500px; height:40px" placeholder="type name to be searched">
+<input class="b" type="submit" style="width:40px; height:40px" value="Go">
+
+  </form>
+<br>
+<br>
+<br>
+<table border="2" style="font-size:30px;">
+{% if data %}
+<tr>
+<th>Tasks</th>
+<th>Deadline</th>
+<th>Note</th>
+<th>Time stamp</th>
+<th>Delete</th>
+</tr>
+{% for d in data %}
+<tr>
+<td>{{d.task}}</td>
+<td>{{d.deadline}}</td>
+<td>{{d.note}}</td>
+<td>{{d.time}}</td>
+<div id="del">
+<td><a style="color:red;" href="{% url 'deletetask' id=d.uid %}" onclick="return confirm('Are You Sure?')">Delete</a></td></div>
+</tr>
+{% endfor %}
+{% else %}
+<tr>
+<td>
+No Data Found
+</td>
+</tr>
+{% endif %}
+</table>
+</center>
+<br>
+<br>
+<br>
+<footer>
+<img style="width:100%;" src="{% static "images/foot.png" %}">
+</footer>
+</body>
+</html>
