@@ -1,4 +1,5 @@
-QuickPlan
+QUICKPLAN
+
 Hello everyone,
 This is a Web Application using Django Framework 
 
